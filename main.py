@@ -1,25 +1,11 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
+from router.route import router as predict_router
 
 app = FastAPI()
 
-items = [];
+# Daftarkan route
+app.include_router(predict_router)
 
-
-@app.get("/")
-def root():
-    return {"Hello" : "World"}
-
-
-@app.post("/items")
-def create_item(item : str):
-    items.append(item)
-    return {
-        "data" : items
-    }
-
-@app.get("/items/{item_id}")
-def get_item(item_id : int) -> str:
-    if item_id < len(items):
-        return items[item_id]
-    else:
-        raise HTTPException(status_code=400, detail="Item Not Found")
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="127.0.0.1", port=8000)
