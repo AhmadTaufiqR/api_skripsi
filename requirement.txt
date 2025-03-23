@@ -3,3 +3,5 @@ uvicorn
 joblib
 numpy
 scikit-learn
+pandas
+openpyxl
